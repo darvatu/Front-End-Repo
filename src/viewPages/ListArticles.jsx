@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getApiArticles } from "../Api";
-import ArticleCard from "./ArticleCard";
+import { getApi } from "../Api";
+import ArticleCard from "../ArticleCard";
 import "../All.css";
 
 export default function ListArticles() {
@@ -9,7 +9,7 @@ export default function ListArticles() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    getApiArticles("/api/articles")
+    getApi("/api/articles")
       .then((response) => {
         setArticles(response.articles);
         setIsLoading(false);
