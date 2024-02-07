@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getApiArticles } from "./Api";
-import "./All.css";
+import { getApi } from "../Api";
+import "../All.css";
 
 export default function ArticleDetailed() {
-  const { id_article } = useParams(); // getting the id_article from the url
+  const { id_article } = useParams(); // getting the id_article from the url using the id from the route with :id_article
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
 
   useEffect(() => {
-    getApiArticles(`/api/articles`)
+    getApi(`/api/articles`)
       .then((response) => {
         setArticles(response.articles);
         setIsLoading(false);

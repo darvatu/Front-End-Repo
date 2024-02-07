@@ -1,4 +1,4 @@
-import "./All.css";
+import "../All.css";
 export default function Topics() {
   return (
     <div className="topics">

@@ -1,4 +1,4 @@
-import "../All.css";
+import "./All.css";
 import { Link } from "react-router-dom";
 
 export default function ArticleCard({ article }) {
@@ -12,7 +12,9 @@ export default function ArticleCard({ article }) {
         <p>Topic: {article.topic}</p>
         <p>Created at: {new Date(article.created_at).toLocaleString()}</p>
         <p>Votes: {article.votes} </p>
+        <Link to={`/comments/${article.article_id}`}>
         <p>Comments: {article.comment_count}</p>
+        </Link>
       </section>
     </>
   );
