@@ -2,6 +2,7 @@
 // Task_5_CORE_View_an_individual_article
 // Task_6_View_list_comments_from_article
 // Task_7_CORE_Vote_on_an_article
+// Task_8_CORE_Post_a_new_comment_to_an_existing_article
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import Header from "./Header";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/topics" element={<Topics />} />
         <Route path="/comments/:id_article" element={<ListComments />} />
+        
       </Routes>
     </div>
   );
