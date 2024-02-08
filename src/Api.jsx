@@ -18,3 +18,9 @@ export const patchApi = (url, data) => {
     return response.data;
   });
 };
+
+export const deleteApi = (url) => {
+  return baseURL.delete(url).then((response) => {
+    return response.data;
+  });
+};

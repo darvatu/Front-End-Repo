@@ -3,6 +3,7 @@
 // Task_6_View_list_comments_from_article
 // Task_7_CORE_Vote_on_an_article
 // Task_8_CORE_Post_a_new_comment_to_an_existing_article
+// Task_9_CORE_Delete_comments
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import Header from "./Header";
