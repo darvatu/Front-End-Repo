@@ -1,6 +1,7 @@
 // task_4_CORE_View_a_list_of_all_articles
 // Task_5_CORE_View_an_individual_article
 // Task_6_View_list_comments_from_article
+// Task_7_CORE_Vote_on_an_article
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import Header from "./Header";
@@ -10,6 +11,7 @@ import About from "./viewPages/About";
 import ArticleDetailed from "./viewPages/ArticleDetailed";
 import Topics from "./viewPages/Topics";
 import ListComments from "./viewPages/ListComments";
+
 
 function App() {
   return (

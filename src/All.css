@@ -29,8 +29,8 @@
 .article {
   margin: 20px; /* Margin around the article*/
   padding: 20px; /* Padding inside the article*/
-  max-width: 600px; /* Maximum width of the article*/
-  background-color: rgb(119, 182, 179); /* Background color of the article*/
+  max-width: auto; /* Maximum width of the article*/
+  background-color: rgb(179, 248, 232); /* Background color of the article*/
   border: 1px solid rgb(19, 59, 46); /* Border of the article*/
 }
 

@@ -7,3 +7,8 @@ export const getApi = (url) => {
   });
 };
 
+export const patchApi = (url, data) => {
+  return baseURL.patch(url, data).then((response) => {
+    return response.data;
+  });
+};
