@@ -1,4 +1,4 @@
-import { getApi } from "../Api";
+import { getApi, postApi } from "../Api";
 import { useEffect, useState } from "react";
 import CommentCard from "../CommentCard";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,20 @@ export default function ListComments() {
   const { id_article } = useParams();
   const [articles, setArticles] = useState([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [newComment, setNewComment] = useState("");
+
+  const handleAddComment = (event) => {
+    event.preventDefault();
+  
+    postApi(`/api/articles/${id_article}/comments`, {author: selectedArticle.author, body: newComment}) // the author will be by default the author of the article
+      .then((response) => {
+        setComments((prevComments) => [response.comment, ...prevComments]);//comment is shown first on the page if successfully
+        setNewComment("");
+      })
+      .catch(() => {
+        setError(true);
+      });
+  };
 
   useEffect(() => {
     getApi("/api/articles")
@@ -56,13 +70,17 @@ export default function ListComments() {
             <h2>Article title: {selectedArticle.title}</h2>
           </Link>
           <p>Author: {selectedArticle.author}</p>
-          <p>
-            Here is the article text, API seems not to import the body
-            {selectedArticle.body}
-          </p>
+          <form onSubmit={handleAddComment}>
+            <textarea //textarea is an HTML element used to get user input in a text form
+              value={newComment}
+              onChange={(res) => setNewComment(res.target.value)}
+              required
+            />
+            <button type="submit">Add Comment</button>
+          </form>
+          <p>{selectedArticle.body}</p>
         </>
-      )
-    } 
+      )}
 
       {comments.map((element) => {
         return <CommentCard key={element.comment_id} comment={element} />;

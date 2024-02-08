@@ -7,6 +7,12 @@ export const getApi = (url) => {
   });
 };
 
+export const postApi = (url, data) => {
+  return baseURL.post(url, data).then((response) => {
+    return response.data;
+  });
+};
+
 export const patchApi = (url, data) => {
   return baseURL.patch(url, data).then((response) => {
     return response.data;
