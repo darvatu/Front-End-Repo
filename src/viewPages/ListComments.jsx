@@ -82,9 +82,9 @@ export default function ListComments() {
         </>
       )}
 
-      {comments.map((element) => {
-        return <CommentCard key={element.comment_id} comment={element} />;
-      })}
+{selectedArticle && comments.map((element) => {
+  return <CommentCard key={element.comment_id} comment={element} authorCommentAllowedToBeDeleted={selectedArticle.author} />;
+})}
     </section>
   );
 }
