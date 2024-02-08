@@ -28,7 +28,7 @@ export default function ListArticles() {
       {articles.map((element) => {
         return (
           <ArticleCard
-            key={element.article_id} // Add unique key prop
+            key={element.article_id} 
             article={element}
           />
         );

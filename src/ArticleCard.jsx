@@ -13,7 +13,7 @@ export default function ArticleCard({ article }) {
         <p>Created at: {new Date(article.created_at).toLocaleString()}</p>
         <p>Votes: {article.votes} </p>
         <Link to={`/comments/${article.article_id}`}>
-        <p>Comments: {article.comment_count}</p>
+          <p>Comments: {article.comment_count}</p>
         </Link>
       </section>
     </>
