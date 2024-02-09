@@ -11,6 +11,24 @@ export default function ArticleDetailed() {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
 
+  const handleButtonClick = () => {
+    setIsLoading(true);
+    const voteChange = isLiked ? -1 : 1;
+    patchApi(`/api/articles/${id_article}`, { inc_votes: voteChange })
+      .then((response) => {
+        setSelectedArticle((prevArticle) => ({
+          ...prevArticle,
+          ...response.article,
+        }));
+        setIsLoading(false);
+        setIsLiked(!isLiked);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setError(true);
+      });
+  };
+
   useEffect(() => {
     getApi(`/api/articles/${id_article}`)
       .then((response) => {
@@ -38,23 +56,8 @@ export default function ArticleDetailed() {
             Created at: {new Date(selectedArticle.created_at).toLocaleString()}
           </p>
           <p>
-            <button
-              onClick={() => {
-                setIsLoading(true);
-                const voteChange = isLiked ? -1 : 1;
-                patchApi(`/api/articles/${id_article}`, { inc_votes: voteChange })
-                  .then((response) => {
-                    setSelectedArticle(response.article);
-                    setIsLoading(false);
-                    setIsLiked(!isLiked);
-                  })
-                  .catch(() => {
-                    setIsLoading(false);
-                    setError(true);
-                  });
-              }}
-            >
-              {isLiked ? 'Unlike' : 'Like'}
+            <button onClick={handleButtonClick}>
+              {isLiked ? "Unlike" : "Like"}
             </button>
             Votes: {selectedArticle.votes}
           </p>

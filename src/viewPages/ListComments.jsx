@@ -13,12 +13,19 @@ export default function ListComments() {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [newComment, setNewComment] = useState("");
 
+  const handleDeleteComment = (id) => {
+    setComments(comments.filter((comment) => comment.comment_id !== id));
+  };
+
   const handleAddComment = (event) => {
     event.preventDefault();
-  
-    postApi(`/api/articles/${id_article}/comments`, {author: selectedArticle.author, body: newComment}) // the author will be by default the author of the article
+
+    postApi(`/api/articles/${id_article}/comments`, {
+      author: selectedArticle.author,
+      body: newComment,
+    }) // the author will be by default the author of the article
       .then((response) => {
-        setComments((prevComments) => [response.comment, ...prevComments]);//comment is shown first on the page if successfully
+        setComments((prevComments) => [response.comment, ...prevComments]);
         setNewComment("");
       })
       .catch(() => {
@@ -82,9 +89,17 @@ export default function ListComments() {
         </>
       )}
 
-{selectedArticle && comments.map((element) => {
-  return <CommentCard key={element.comment_id} comment={element} authorCommentAllowedToBeDeleted={selectedArticle.author} />;
-})}
+      {selectedArticle &&
+        comments.map((element) => {
+          return (
+            <CommentCard
+              key={element.comment_id}
+              comment={element}
+              authorCommentAllowedToBeDeleted={selectedArticle.author}
+              onDelete={handleDeleteComment}
+            />
+          );
+        })}
     </section>
   );
 }

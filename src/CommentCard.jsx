@@ -1,22 +1,26 @@
 import { deleteApi } from "./Api";
 import { useState } from "react";
 
-export default function CommentCard({comment, authorCommentAllowedToBeDeleted}) {
+export default function CommentCard({comment, authorCommentAllowedToBeDeleted, onDelete}) {
   const [error, setError] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = () => {
+    setIsLoading(true);
     deleteApi(`/api/comments/${comment.comment_id}`)
       .then(() => {
-        setIsDeleted(true);
+        window.alert("Comment deleted successfully!");
+        setIsLoading(false);
+        onDelete(comment.comment_id);
       })
       .catch(() => {
         setError(true);
+        setIsLoading(false);
       });
   };
 
   if (error) return <p>Something went wrong loading articles...</p>;
-  if (isDeleted) return <p>Comment deleted successfully!</p>;
+  if (isLoading) return <p>Deleting comment...</p>;
 
   return (
     <section className="comment">
@@ -25,7 +29,7 @@ export default function CommentCard({comment, authorCommentAllowedToBeDeleted}) 
       <p><span>Author:</span> {comment.author}</p>
       <p><span>Votes:</span> {comment.votes}</p>
       {comment.author === authorCommentAllowedToBeDeleted && (
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete} disabled={isLoading}>Delete</button>
       )}
     </section>
   );
