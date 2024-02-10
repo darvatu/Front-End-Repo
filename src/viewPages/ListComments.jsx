@@ -23,7 +23,7 @@ export default function ListComments() {
     postApi(`/api/articles/${id_article}/comments`, {
       author: selectedArticle.author,
       body: newComment,
-    }) // the author will be by default the author of the article
+    }) 
       .then((response) => {
         setComments((prevComments) => [response.comment, ...prevComments]);
         setNewComment("");
@@ -78,7 +78,7 @@ export default function ListComments() {
           </Link>
           <p>Author: {selectedArticle.author}</p>
           <form onSubmit={handleAddComment}>
-            <textarea //textarea is an HTML element used to get user input in a text form
+            <textarea 
               value={newComment}
               onChange={(res) => setNewComment(res.target.value)}
               required
