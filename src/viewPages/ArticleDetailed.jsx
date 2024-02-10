@@ -48,23 +48,23 @@ export default function ArticleDetailed() {
     <div>
       {selectedArticle ? (
         <section className="articleDetailed">
-          <h2>Title: {selectedArticle.title}</h2>
-          <p>Author: {selectedArticle.author}</p>
-          <p>Topic: {selectedArticle.topic}</p>
-          <p>Body: {selectedArticle.body}</p>
-          <p>
-            Created at: {new Date(selectedArticle.created_at).toLocaleString()}
-          </p>
-          <p>
-            <button onClick={handleButtonClick}>
-              {isLiked ? "Unlike" : "Like"}
-            </button>
-            Votes: {selectedArticle.votes}
-          </p>
-          <p>
+          <h2 className="title">Title: {selectedArticle.title}</h2>
+          <p className="author">Author: {selectedArticle.author}</p>
+          <p className="topic">Topic: {selectedArticle.topic}</p>
+          <p className="body">Body: {selectedArticle.body}</p>
+          <p className="comments">
             <Link to={`/comments/${selectedArticle.article_id}`}>
               Comments: {selectedArticle.comment_count}
             </Link>
+          </p>
+          <div className="votesAndLikes">
+            <button className="likeButton" onClick={handleButtonClick}>
+              {isLiked ? "Unlike" : "Like"}
+            </button>
+            <p className="votes">Votes: {selectedArticle.votes}</p>
+          </div>
+          <p className="createdAt">
+            Created at: {new Date(selectedArticle.created_at).toLocaleString()}
           </p>
         </section>
       ) : (

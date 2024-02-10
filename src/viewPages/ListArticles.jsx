@@ -10,29 +10,55 @@ export default function ListArticles() {
   const [error, setError] = useState(false);
   const [topic, setTopic] = useState("all");
   const [topics, setTopics] = useState(["all"]);
+  const [sortOption, setSortOption] = useState("date");
+  const [sortOrder, setSortOrder] = useState("desc");
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+  };
 
   useEffect(() => {
     getApi("/api/articles")
       .then((response) => {
-        setArticles(response.articles);
-        setFilteredArticles(response.articles);
+        let sortedArticles = [...response.articles];
+        switch (sortOption) {
+          case "date":
+            sortedArticles.sort(
+              (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            );
+            break;
+          case "comment_count":
+            sortedArticles.sort((a, b) => b.comment_count - a.comment_count);
+            break;
+          case "votes":
+            sortedArticles.sort((a, b) => b.votes - a.votes);
+            break;
+          default:
+            break;
+        }
+        if (sortOrder === "asc") {
+          sortedArticles.reverse();
+        }
+        setArticles(sortedArticles);
+        setFilteredArticles(sortedArticles);
         setIsLoading(false);
-        // create a list of unique topics from the articles
-        // "Set" is making sure that we only have unique topics and will look like this: {'all', 'topic1', 'topic2', ...}, like an object without keys but with unique values
-        //Array.from(...):  converts the Set back into an array. This is done because Sets are not as easy to work with as with arrays, and the map function is not available for Sets.
+
         const uniqueTopics = Array.from(
           new Set(response.articles.map((article) => article.topic))
         );
         setTopics(["all", ...uniqueTopics]);
       })
       .catch(() => {
-        setIsLoading(false);
         setError(true);
+        setIsLoading(false);
       });
-  }, []);
+  }, [sortOption, sortOrder]);
 
   useEffect(() => {
-    // to assigned either all or the filtered articles
     const filtered =
       topic === "all"
         ? articles
@@ -49,6 +75,15 @@ export default function ListArticles() {
 
   return (
     <div>
+      <select value={sortOption} onChange={handleSortChange}>
+        <option value="date">Sort by Date</option>
+        <option value="comment_count">Sort by Comment Count</option>
+        <option value="votes">Sort by Votes</option>
+      </select>
+      <select value={sortOrder} onChange={handleSortOrderChange}>
+        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
+      </select>
       <label>Filter by topic: </label>
       <select value={topic} onChange={handleTopicChange}>
         {topics.map((topic) => (
