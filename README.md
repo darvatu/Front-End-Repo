@@ -1,6 +1,6 @@
 About
 
-Welcome to my project! This front-end project is designed to showcase press articles, enabling users to interact with and explore a curated list of articles. The project features a home page, article listing with sorting options, article viewing and liking functionality, commenting capabilities, and article filtering by topic.
+Welcome to my project https://front-end-daniel.netlify.app/ ! This front-end project is designed to showcase press articles, enabling users to interact with and explore a curated list of articles. The project features a home page, article listing with sorting options, article viewing and liking functionality, commenting capabilities, and article filtering by topic.
 
 
 Features
